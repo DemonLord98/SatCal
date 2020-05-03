@@ -48,7 +48,6 @@ elif EarthStaLat > 0:
     elif EarthStaLon > SatStaLon:       # If the satellite is South West of the Earth station
         Azim = 180 + InterAngleAi
         print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim)
-print ("hello")
     #else:                               # If the satellite is on the same longitude and South of the Earth station
         #
         #
