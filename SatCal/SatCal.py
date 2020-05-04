@@ -24,41 +24,42 @@ InterAnglePsi = math.atan(z/ l)
 d = math.sqrt(pow(StaRad, 2) + pow(GeoRad, 2) - 2 * StaRad * GeoRad * math.cos(InterAnglePsi) *  math.cos(B))
 # Calculate the Elevation Angle of the satellite
 Elev = math.degrees(math.acos(((EarthEquaRad + GeoAlt) / d) * math.sqrt(1 - pow(math.cos(B), 2) * pow(math.cos(EarthStaLat), 2))))
-# Calculate the intermediate angle 𝐴𝒾
-InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
 
 # Print the results
-print ("\nThe Range/distance to the satellite:\n\td = ", d)
-print ("\nThe Elevation Angle of the satellite:\n\tΦ = ", Elev)
+print ("\nThe Range/distance to the satellite:\n\td = ", d, " km")
+print ("\nThe Elevation Angle of the satellite:\n\tΦ = ", Elev, " degrees")
 
 if EarthStaLat < 0:
     if EarthStaLon < SatStaLon:         # If the satellite is North East of the Earth station
+        InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim)
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     elif EarthStaLon > SatStaLon:       # If the satellite is North West of the Earth station
+        InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 360 - InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim)
-    #else:                               # If the satellite is on the same longitude and North of the Earth station
-        #
-        #
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
+    else:                               # If the satellite is on the same longitude and North of the Earth station
+        Azim = 0
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
 elif EarthStaLat > 0:
     if EarthStaLon < SatStaLon:         # If the satellite is South East of the Earth station
+        InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 180 - InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim)
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     elif EarthStaLon > SatStaLon:       # If the satellite is South West of the Earth station
+        InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 180 + InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim)
-    #else:                               # If the satellite is on the same longitude and South of the Earth station
-        #
-        #
-#else:
-    #if EarthStaLon > SatStaLon:         # If the satellite is on the same latitude and East of the Earth station
-        #
-        #
-    #elif EarthStaLon < SatStaLon:       # If the satellite is on the same latitude and West of the Earth station
-        #
-        #
-    #else:                               # If the satellite dirctly above the Earth station
-        #
-        #
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
+    else:                               # If the satellite is on the same longitude and South of the Earth station
+        Azim = 180
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
+else:
+    if EarthStaLon > SatStaLon:         # If the satellite is on the same latitude and East of the Earth station
+        Azim = 90
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
+    elif EarthStaLon < SatStaLon:       # If the satellite is on the same latitude and West of the Earth station
+        Azim = 270
+        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
+    else:                               # If the satellite dirctly above the Earth station
+        print ("\nThe Azimuth of the satellite is unidentefied\nsince the satellite is directly above the Earth station.\n")
 
