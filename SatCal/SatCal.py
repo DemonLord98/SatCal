@@ -4,6 +4,7 @@ EarthEquaRad = 6378.14      # Earth raduis on the equator
 GeoRad = 42164.17           # Geostationary orbit raduis 
 GeoAlt = 35786              # GSO altitude
 EccOfEarth = 0.08182        # Eccentricity of the Earth
+Azim = 0.0
 
 EarthStaLat = math.radians(float(input("Input your latitude in degrees: ")))
 EarthStaLon = math.radians(float(input("Input your longitude in degrees: ")))
@@ -33,33 +34,28 @@ if EarthStaLat < 0:
     if EarthStaLon < SatStaLon:         # If the satellite is North East of the Earth station
         InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     elif EarthStaLon > SatStaLon:       # If the satellite is North West of the Earth station
         InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 360 - InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     else:                               # If the satellite is on the same longitude and North of the Earth station
         Azim = 0
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
 elif EarthStaLat > 0:
     if EarthStaLon < SatStaLon:         # If the satellite is South East of the Earth station
         InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 180 - InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     elif EarthStaLon > SatStaLon:       # If the satellite is South West of the Earth station
         InterAngleAi = math.degrees(math.asin(math.sin(abs(B)) / math.sin(beta)))
         Azim = 180 + InterAngleAi
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     else:                               # If the satellite is on the same longitude and South of the Earth station
         Azim = 180
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
 else:
     if EarthStaLon > SatStaLon:         # If the satellite is on the same latitude and East of the Earth station
         Azim = 90
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     elif EarthStaLon < SatStaLon:       # If the satellite is on the same latitude and West of the Earth station
         Azim = 270
-        print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
     else:                               # If the satellite dirctly above the Earth station
         print ("\nThe Azimuth of the satellite is unidentefied\nsince the satellite is directly above the Earth station.\n")
+
+if EarthStaLat != 0 or EarthStaLon != SatStaLon:
+    print ("\nThe Azimuth of the satellite:\n\tφ = ", Azim, " degrees")
 
