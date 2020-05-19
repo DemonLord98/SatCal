@@ -48,8 +48,8 @@ range = math.sqrt(pow(sta_rad, 2) + pow(GEO_RAD, 2) - 2 * sta_rad * GEO_RAD * ma
 elev = math.degrees(math.acos(((EARTH_EQUA_RAD + GEO_ALT) / range) * math.sqrt(1 - pow(math.cos(diff_lon), 2) * pow(math.cos(earth_sta_lat), 2))))
 
 # Print the results
-print ("\nThe Range/distance to the satellite:\n\td = ", range, " km")
-print ("\nThe Elevation Angle of the satellite:\n\tθ = ", elev, " degrees")
+print (f"\nThe Range/distance to the satellite:\n\td = {range} km")
+print (f"\nThe Elevation Angle of the satellite:\n\tθ = {elev}°")
 
 if earth_sta_lat < 0:
     if earth_sta_lon < sat_long:         # If the satellite is North East of the Earth station
@@ -78,5 +78,5 @@ else:
         print ("\nThe Azimuth of the satellite is unidentefied\nsince the satellite is directly above the Earth station.\n")
 
 if earth_sta_lat != 0 or earth_sta_lon != sat_long:
-    print ("\nThe Azimuth of the satellite:\n\tφ = ", azim, " degrees")
+    print (f"\nThe Azimuth of the satellite:\n\tφ = {azim}°")
 
