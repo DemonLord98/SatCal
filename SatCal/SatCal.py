@@ -13,7 +13,7 @@ sat_long = 200.0
 
 # While and if control statments for user input errors
 while earth_sta_lat < -90 or earth_sta_lat > 90:
-    earth_sta_lat = float(input("Input your  in degrees: "))
+    earth_sta_lat = float(input("Input your latitude in degrees: "))
     if earth_sta_lat < -90 or earth_sta_lat > 90:
         print("---Please input a valid latitude value---\n")
 while earth_sta_lon < -180 or earth_sta_lon > 180:
