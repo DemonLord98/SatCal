@@ -1,8 +1,8 @@
 import math
 
-EARTH_EQUA_RAD = 6378.14        # Earth raduis on the equator
+EARTH_EQUA_RAD = 6378.14        # Earth radius on the equator
 EARTH_ECCENT = 0.08182          # Eccentricity of the Earth
-GEO_RAD = 42164.17              # Geostationary orbit raduis 
+GEO_RAD = 42164.17              # Geostationary orbit radius
 GEO_ALT = 35786                 # GSO altitude
 
 # Default values
@@ -11,7 +11,7 @@ earth_sta_lat = 100.0
 earth_sta_lon = 200.0
 sat_long = 200.0
 
-# While and if control statments for user input errors
+# While and if control statements for user input errors
 while earth_sta_lat < -90 or earth_sta_lat > 90:
     earth_sta_lat = float(input("Input your latitude in degrees: "))
     if earth_sta_lat < -90 or earth_sta_lat > 90:
@@ -38,7 +38,7 @@ beta = math.acos(math.cos(diff_lon) * math.cos(earth_sta_lat))
 l = ((EARTH_EQUA_RAD / math.sqrt(1 - pow(EARTH_ECCENT, 2) * pow(math.sin(earth_sta_lat), 2))) + EarthStaAlt) * math.cos(earth_sta_lat)
 z = ((EARTH_EQUA_RAD * (1 - pow(EARTH_ECCENT, 2)) / math.sqrt(1 - pow(EARTH_ECCENT, 2) * pow(math.sin(earth_sta_lat), 2))) + EarthStaAlt) * math.sin(earth_sta_lat)
 
-# Calculate the Raduis to the center of the Earth from the ground station
+# Calculate the Radius to the center of the Earth from the ground station
 sta_rad = math.sqrt(l ** 2 + z ** 2)
 # Calculate the intermediate angle Ψᴇ
 inter_angle_psi = math.atan(z/ l)
@@ -48,25 +48,25 @@ range = math.sqrt(pow(sta_rad, 2) + pow(GEO_RAD, 2) - 2 * sta_rad * GEO_RAD * ma
 elev = math.degrees(math.acos(((EARTH_EQUA_RAD + GEO_ALT) / range) * math.sqrt(1 - pow(math.cos(diff_lon), 2) * pow(math.cos(earth_sta_lat), 2))))
 
 # Print the results
-print (f"\nThe Range/distance to the satellite:\n\td = {range} km")
-print (f"\nThe Elevation Angle of the satellite:\n\tθ = {elev}°")
+print(f"\nThe Range/distance to the satellite:\n\td = {range} km")
+print(f"\nThe Elevation Angle of the satellite:\n\tθ = {elev}°")
 
 if earth_sta_lat < 0:
     if earth_sta_lon < sat_long:         # If the satellite is North East of the Earth station
-        inter_angle_ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = inter_angle_ai
+        inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
+        azim = inter_angle_Ai
     elif earth_sta_lon > sat_long:       # If the satellite is North West of the Earth station
-        inter_angle_ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 360 - inter_angle_ai
+        inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
+        azim = 360 - inter_angle_Ai
     else:                                # If the satellite is on the same longitude and North of the Earth station
         azim = 0
 elif earth_sta_lat > 0:
     if earth_sta_lon < sat_long:         # If the satellite is South East of the Earth station
-        inter_angle_ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 180 - inter_angle_ai
+        inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
+        azim = 180 - inter_angle_Ai
     elif earth_sta_lon > sat_long:       # If the satellite is South West of the Earth station
-        inter_angle_ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 180 + inter_angle_ai
+        inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
+        azim = 180 + inter_angle_Ai
     else:                                # If the satellite is on the same longitude and South of the Earth station
         azim = 180
 else:
@@ -75,8 +75,8 @@ else:
     elif earth_sta_lon < sat_long:       # If the satellite is on the same latitude and West of the Earth station
         azim = 270
     else:                                # If the satellite dirctly above the Earth station
-        print ("\nThe Azimuth of the satellite is unidentefied\nsince the satellite is directly above the Earth station.\n")
+        print("\nSince the satellite is directly above the Earth station,\n"
+              "The Azimuth of the satellite can't be identified.\n")
 
 if earth_sta_lat != 0 or earth_sta_lon != sat_long:
-    print (f"\nThe Azimuth of the satellite:\n\tφ = {azim}°")
-
+    print(f"\nThe Azimuth of the satellite:\n\tφ = {azim}°")

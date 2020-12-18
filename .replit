@@ -1,2 +1,2 @@
 language = "python3"
-run = "python SatCal/SatCal.py"
+run = "python SatCal.py"
