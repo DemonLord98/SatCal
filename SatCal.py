@@ -6,7 +6,7 @@ GEO_RAD = 42164.17              # Geostationary orbit radius
 GEO_ALT = 35786                 # GSO altitude
 
 # Default values
-azim = 0.0
+azimuth = 0.0
 earth_sta_lat = 100.0
 earth_sta_lon = 200.0
 sat_long = 200.0
@@ -43,40 +43,40 @@ sta_rad = math.sqrt(l ** 2 + z ** 2)
 # Calculate the intermediate angle Ψᴇ
 inter_angle_psi = math.atan(z/ l)
 # Calculate the Range to the satellite
-range = math.sqrt(pow(sta_rad, 2) + pow(GEO_RAD, 2) - 2 * sta_rad * GEO_RAD * math.cos(inter_angle_psi) *  math.cos(diff_lon))
+range_to_sat = math.sqrt(pow(sta_rad, 2) + pow(GEO_RAD, 2) - 2 * sta_rad * GEO_RAD * math.cos(inter_angle_psi) * math.cos(diff_lon))
 # Calculate the Elevation Angle of the satellite
-elev = math.degrees(math.acos(((EARTH_EQUA_RAD + GEO_ALT) / range) * math.sqrt(1 - pow(math.cos(diff_lon), 2) * pow(math.cos(earth_sta_lat), 2))))
+elev = math.degrees(math.acos(((EARTH_EQUA_RAD + GEO_ALT) / range_to_sat) * math.sqrt(1 - pow(math.cos(diff_lon), 2) * pow(math.cos(earth_sta_lat), 2))))
 
 # Print the results
-print(f"\nThe Range/distance to the satellite:\n\td = {range} km")
+print(f"\nThe Range/distance to the satellite:\n\td = {range_to_sat} km")
 print(f"\nThe Elevation Angle of the satellite:\n\tθ = {elev}°")
 
 if earth_sta_lat < 0:
     if earth_sta_lon < sat_long:         # If the satellite is North East of the Earth station
         inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = inter_angle_Ai
+        azimuth = inter_angle_Ai
     elif earth_sta_lon > sat_long:       # If the satellite is North West of the Earth station
         inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 360 - inter_angle_Ai
+        azimuth = 360 - inter_angle_Ai
     else:                                # If the satellite is on the same longitude and North of the Earth station
-        azim = 0
+        azimuth = 0
 elif earth_sta_lat > 0:
     if earth_sta_lon < sat_long:         # If the satellite is South East of the Earth station
         inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 180 - inter_angle_Ai
+        azimuth = 180 - inter_angle_Ai
     elif earth_sta_lon > sat_long:       # If the satellite is South West of the Earth station
         inter_angle_Ai = math.degrees(math.asin(math.sin(abs(diff_lon)) / math.sin(beta)))
-        azim = 180 + inter_angle_Ai
+        azimuth = 180 + inter_angle_Ai
     else:                                # If the satellite is on the same longitude and South of the Earth station
-        azim = 180
+        azimuth = 180
 else:
     if earth_sta_lon > sat_long:         # If the satellite is on the same latitude and East of the Earth station
-        azim = 90
+        azimuth = 90
     elif earth_sta_lon < sat_long:       # If the satellite is on the same latitude and West of the Earth station
-        azim = 270
-    else:                                # If the satellite dirctly above the Earth station
+        azimuth = 270
+    else:                                # If the satellite directly above the Earth station
         print("\nSince the satellite is directly above the Earth station,\n"
               "The Azimuth of the satellite can't be identified.\n")
 
 if earth_sta_lat != 0 or earth_sta_lon != sat_long:
-    print(f"\nThe Azimuth of the satellite:\n\tφ = {azim}°")
+    print(f"\nThe Azimuth of the satellite:\n\tφ = {azimuth}°")
